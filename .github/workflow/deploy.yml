@@ -1,0 +1,21 @@
+name: Deploy
+
+on: [push, pull_request]
+
+jobs:
+  UpdateDatabase:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v2
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2.2.0
+        with:
+          node-version: 16
+      - name: Install Deps
+        run: npm i
+      - name: Update Activities
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          MONGODB_DB: ${{ secrets.MONGODB_DB }}
+        run: npm run updateDB

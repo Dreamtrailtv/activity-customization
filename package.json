@@ -1,0 +1,22 @@
+{
+  "name": "presencedb-activities",
+  "version": "1.0.0",
+  "description": "Storage for the customization of activities",
+  "scripts": {
+    "updateDB": "node ./utils/updateDB.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PresenceDB/activities.git"
+  },
+  "author": "vasc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PresenceDB/activities/issues"
+  },
+  "homepage": "https://github.com/PresenceDB/activities#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "mongodb": "^3.6.10"
+  }
+}
