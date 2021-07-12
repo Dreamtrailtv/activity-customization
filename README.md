@@ -7,7 +7,7 @@ Storage for the customization of activities 🖌
 3. Add this to your file:
 ```json
 {
-    "name": "[ACTIVITY NAME]"
+    "name": "[ACTIVITY NAME]",
     "color": "[HEX CODE]",
     "imageUrl": "[IMGUR IMAGE URL]"
 }
