@@ -10,7 +10,7 @@ const client = new MongoClient(process.env.MONGODB_URI, {
 });
 
 const main = async () => {
-    console.log("Starting update...");
+    console.log("Starting...");
     await client.connect();
     console.log("Connected to db");
     const collection = client.db(process.env.MONGODB_DB).collection("activities");
@@ -20,12 +20,12 @@ const main = async () => {
         const applicationId = file.name.replace(".json", "");
         const color = json.color;
         const imgUrl = json.imageUrl;
+        const applicationName = json.name;
 
-        console.log(`Updating ${applicationId}...`);
+        console.log(`Updating ${applicationName}`);
         await collection.findOneAndUpdate({"applicationId": applicationId}, {$set: {"color": color, "imgUrl": imgUrl}});
-        console.log(`Finished ${applicationId}.`);
     };
-    console.log("Update done.")
+    console.log("Finished.")
     process.exit(0);
 }
 
