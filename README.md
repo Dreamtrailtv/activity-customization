@@ -12,7 +12,8 @@ Storage for the customization of activities 🖌
     "imageUrl": "[IMGUR IMAGE URL]"
 }
 ```
-4. Create a Pull Request
-5. Wait for its approval
+4. Fill the placeholders and make sure that the **image is a square** (use editing tools if the image you want to submit isn't)
+5. Create a Pull Request
+6. Wait for its approval
 
 Thanks to everyone who is contributing!
