@@ -2,7 +2,7 @@ const fs = require("fs");
 const { MongoClient } = require("mongodb");
 require("dotenv").config();
 
-const activitiesDir = "./activities";
+const customizationsDir = "./customizations";
 
 const client = new MongoClient(process.env.MONGODB_URI, {
   appname: "PresenceDB-Updater",
@@ -10,25 +10,26 @@ const client = new MongoClient(process.env.MONGODB_URI, {
 });
 
 const main = async () => {
-  console.log("Starting...");
   await client.connect();
-  console.log("Connected to db");
+  console.log("Connection to database succeeded.");
   const collection = client.db(process.env.MONGODB_DB).collection("activities");
-  const dir = await fs.promises.opendir(activitiesDir);
+  const dir = await fs.promises.opendir(customizationsDir);
   for await (const file of dir) {
-    const json = JSON.parse(fs.readFileSync(`${activitiesDir}/${file.name}`));
-    const applicationId = file.name.replace(".json", "");
-    const color = json.color;
-    const imgUrl = json.imageUrl;
-    const applicationName = json.name;
-
-    await collection.findOneAndUpdate(
-      { applicationId: applicationId },
-      { $set: { color: color, imgUrl: imgUrl } }
+    const json = JSON.parse(
+      fs.readFileSync(`${customizationsDir}/${file.name}`)
     );
-    console.log(`Updated ${applicationName}`);
+
+    for (const applicationId of json.ids) {
+      const color = json.color;
+      const imgUrl = json.imageUrl;
+
+      await collection.findOneAndUpdate(
+        { applicationId: applicationId },
+        { $set: { color: color, imgUrl: imgUrl } }
+      );
+      console.log(`[${file.name}] Updated ${applicationId}`);
+    }
   }
-  console.log("Finished.");
   process.exit(0);
 };
 
